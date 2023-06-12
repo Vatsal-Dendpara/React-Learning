@@ -5,10 +5,9 @@ import Category from "../category/category.component";
 import { useEffect } from "react";
 import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.util";
 import { useDispatch } from "react-redux";
-import { setCategories } from "../../store/categories/categories.action";
+import { setCategories } from "../../store/categories/categories.reducer";
 
 const Shop = () => {
-  console.log("inside shop");
   const dispatch = useDispatch();
   useEffect(() => {
     const getData = async () => {

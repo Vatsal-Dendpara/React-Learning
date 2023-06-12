@@ -10,18 +10,18 @@ import {
   createUserDocumentFromAuth,
   onAuthStateChangedListener,
 } from "./utils/firebase/firebase.util";
-import { setCurrentUser } from "./store/user/user.action";
+import { setCurrentUser } from "./store/user/user.reducer";
 
 const App = () => {
-  console.log("inside the app.js");
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("inside the app.js effect");
     const response = onAuthStateChangedListener(async (user) => {
       if (user) {
         await createUserDocumentFromAuth(user);
       }
-      dispatch(setCurrentUser(user));
+      const pickedValues =
+        user && (({ email, accessToken }) => ({ accessToken, email }))(user);
+      dispatch(setCurrentUser(pickedValues));
     });
     return response;
   }, [dispatch]);
